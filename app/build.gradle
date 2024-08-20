@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'androidx.navigation.safeargs'
+
+android {
+    namespace 'com.ibashkimi.tris'
+    compileSdk versions.android.compileSdk
+    defaultConfig {
+        applicationId "com.ibashkimi.tris"
+        minSdkVersion versions.android.minSdk
+        targetSdkVersion versions.android.targetSdk
+        versionCode 6
+        versionName '1.2'
+        resourceConfigurations += ['en', 'it', 'sq']
+    }
+    android.viewBinding.enabled = true
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
+        release {
+            /*lintOptions {
+                disable 'MissingTranslation'
+            }*/
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation deps.kotlin.coroutines
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.browser
+    implementation deps.androidx.constraintlayout
+    implementation deps.androidx.core
+    implementation deps.androidx.preference
+    implementation deps.lifecycle.livedata
+    implementation deps.google.material
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
+}
+
